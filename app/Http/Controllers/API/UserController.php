@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserResorce;
+use App\Http\Requests\User\StoreRequest;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -46,9 +48,12 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $data = $request->validated();
+        $user = User::create($data);
+
+        return UserResorce::make($user);
     }
 
     /**

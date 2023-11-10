@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResorce;
 use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\UpdateRequest;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -67,9 +68,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+        $user->update($data);
+        return UserResorce::make($user);
     }
 
     /**
@@ -77,6 +80,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json([
+            'message' => 'User deleted',
+        ]);
     }
 }

@@ -23,4 +23,6 @@ Route::post('login',[UserController::class,'loginUser']);
 Route::get('user_show/{user}',[UserController::class,'show']);
 Route::group(['middleware' => 'auth:sanctum'],function(){
     Route::post('user_add',[UserController::class,'store']);
+    Route::put('user_edit/{user}',[UserController::class,'update']);
+    Route::get('user_delete/{user}',[UserController::class,'destroy']);
 });

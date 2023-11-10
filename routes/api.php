@@ -20,3 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('login',[UserController::class,'loginUser']);
+Route::get('user_show/{user}',[UserController::class,'show']);
+Route::group(['middleware' => 'auth:sanctum'],function(){
+    Route::post('user_add',[UserController::class,'store']);
+});
